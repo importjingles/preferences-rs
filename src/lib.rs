@@ -224,15 +224,7 @@ impl fmt::Display for PreferencesError {
 }
 
 impl std::error::Error for PreferencesError {
-    fn description(&self) -> &str {
-        use PreferencesError::*;
-        match *self {
-            Json(ref e) => e.description(),
-            Io(ref e) => e.description(),
-            Directory(ref e) => e.description(),
-        }
-    }
-    fn cause(&self) -> Option<&std::error::Error> {
+    fn cause(&self) -> Option<&dyn std::error::Error> {
         use PreferencesError::*;
         Some(match *self {
             Json(ref e) => e,
